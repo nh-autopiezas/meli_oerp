@@ -44,8 +44,10 @@ class MercadoLibreLogin(http.Controller):
 
         codes.setdefault('code','none')
         codes.setdefault('error','none')
+        codes.setdefault('error_description', 'none')
         if codes['error']!='none':
             message = "ERROR: %s" % codes['error']            
+            message+= " DESCRIPTION: %s" % codes['error_description']
             return "<h1>"+message+"</h1><br/><a href='"+meli.auth_url(redirect_URI=REDIRECT_URI)+"'>Login</a>"
 
         if codes['code']!='none':
