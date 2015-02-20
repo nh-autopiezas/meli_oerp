@@ -155,12 +155,21 @@ class product_post(osv.osv_memory):
             #asignando imagen de logo (por source)
             if product.meli_imagen_logo:
                 if product.meli_imagen_id:
-                    body["pictures"]+= [ { 'id': product.meli_imagen_id } ]
+		    if 'pictures' in body.keys():
+	                    body["pictures"]+= [ { 'id': product.meli_imagen_id } ]
+		    else:
+	                    body["pictures"] = [ { 'id': product.meli_imagen_id } ]
 
                 if (multi_images_ids):
-                    body["pictures"]+= multi_images_ids
+		    if 'pictures' in body.keys():
+                        body["pictures"]+= multi_images_ids
+		    else:
+                        body["pictures"] = multi_images_ids
 
-                body["pictures"]+= [ { 'source': product.meli_imagen_logo} ]
+		if 'pictures' in body.keys():
+                    body["pictures"]+= [ { 'source': product.meli_imagen_logo} ]
+		else:
+                    body["pictures"]+= [ { 'source': product.meli_imagen_logo} ]
 
             else:
                 return warningobj.info(cr, uid, title='MELI WARNING', message="Debe completar el campo 'Imagen_Logo' con el url: http://www.nuevohorizonte-sa.com.ar/images/logo1.png", message_html="")
