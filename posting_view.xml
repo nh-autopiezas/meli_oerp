@@ -10,9 +10,24 @@
                 <tree string="Postings" >
                     <field name="name"/>
                     <field name="posting_date"/>
+                    <field name="product_id"/>
+                    <field name="meli_permalink"/>
+                    <field name="meli_status"/>
+                    <field name="meli_price"/>
                 </tree>
             </field>
         </record>
+
+
+    <record id="meli_posting_search_view" model="ir.ui.view">
+        <field name="name">MercadoLibre Posting - Search</field>
+        <field name="model">mercadolibre.posting</field>
+        <field name="arch" type="xml">
+	    <search string="Search MercadoLibre Posting Information">
+                <filter string='Status' icon="terp-mrp" domain="[]" context="{'group_by' : 'meli_status'}"/>
+	    </search>
+        </field>
+    </record>
 
 
         <record model="ir.actions.act_window" id="action_meli_postings_tree">
@@ -21,6 +36,7 @@
             <field name="res_model">mercadolibre.posting</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="meli_posting_search_view"/>
         </record>
 
 
